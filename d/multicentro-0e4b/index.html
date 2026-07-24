@@ -3,28 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Asistente de Ventas Multicentro — por Alteria</title>
+<title>Multicentro — Asistente de Ventas por Alteria</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@500;600;700;800&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://assets.calendly.com/assets/external/widget.css">
 <style>
-  :root{
-    --red:#E00134; --red-dark:#b3002a; --ink:#16181d; --muted:#5b6570;
-    --line:#ececf0; --bg:#ffffff; --soft:#fbf3f5;
-  }
-  *{box-sizing:border-box}
-  html,body{margin:0}
+  :root{--red:#E00134;--red-dark:#ae0028;--red-rgb:224,1,52;--ink:#16181d;--muted:#5b6570;--line:#ececf0;--bg:#fff;--soft:#fdeff2;}
+  *{box-sizing:border-box}html,body{margin:0}
   body{font-family:'Nunito Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);background:var(--bg);line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column;}
   h1,.spartan{font-family:'League Spartan','Nunito Sans',sans-serif;letter-spacing:.2px;}
-
   .top{display:flex;align-items:center;gap:12px;padding:16px 32px;border-bottom:1px solid var(--line);}
   .top .mc{display:flex;align-items:center;gap:9px;font-family:'League Spartan';font-weight:800;font-size:19px;color:var(--red);}
   .top .tile{width:30px;height:30px;border-radius:8px;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;}
-  .top .by{margin-left:auto;font-size:13px;color:var(--muted);}
-  .top .by b{color:#207082;font-weight:700;}
-
+  .top .by{margin-left:auto;font-size:13px;color:var(--muted);} .top .by b{color:#207082;font-weight:700;}
   .wrap{flex:1;max-width:1120px;width:100%;margin:0 auto;padding:24px 32px;display:grid;grid-template-columns:1.02fr .98fr;gap:52px;align-items:center;}
   .copy{max-width:520px;}
   .eyebrow{display:inline-block;font-family:'League Spartan';font-weight:700;font-size:12px;letter-spacing:1.4px;text-transform:uppercase;color:var(--red);background:var(--soft);padding:6px 12px;border-radius:20px;margin-bottom:18px;}
@@ -34,15 +27,22 @@
   .feats{list-style:none;padding:0;margin:0 0 28px;display:flex;flex-direction:column;gap:13px;}
   .feats li{display:flex;gap:11px;align-items:flex-start;font-size:16px;color:var(--ink);}
   .feats .ic{flex-shrink:0;width:24px;height:24px;border-radius:7px;background:var(--soft);color:var(--red);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;margin-top:1px;}
-
   .cta-row{display:flex;flex-wrap:wrap;gap:12px;}
-  .btn{display:inline-flex;align-items:center;gap:10px;background:var(--red);color:#fff;font-family:'League Spartan';font-weight:700;font-size:17px;letter-spacing:.3px;padding:15px 28px;border-radius:12px;text-decoration:none;cursor:pointer;box-shadow:0 8px 22px rgba(224,1,52,.26);transition:transform .14s,box-shadow .14s,background .14s;}
-  .btn:hover{transform:translateY(-2px);background:var(--red-dark);box-shadow:0 12px 28px rgba(224,1,52,.32);}
+  .btn{display:inline-flex;align-items:center;gap:10px;background:var(--red);color:#fff;font-family:'League Spartan';font-weight:700;font-size:17px;letter-spacing:.3px;padding:15px 28px;border-radius:12px;text-decoration:none;cursor:pointer;border:none;box-shadow:0 8px 22px rgba(var(--red-rgb),.26);transition:transform .14s,box-shadow .14s,background .14s;}
+  .btn:hover{transform:translateY(-2px);background:var(--red-dark);box-shadow:0 12px 28px rgba(var(--red-rgb),.32);}
   .btn .arrow{font-size:19px;line-height:1;}
   .btn.secondary{background:#fff;color:var(--red);border:2px solid var(--red);box-shadow:none;}
-  .btn.secondary:hover{background:var(--soft);box-shadow:0 8px 20px rgba(224,1,52,.16);}
+  .btn.secondary:hover{background:var(--soft);box-shadow:0 8px 20px rgba(var(--red-rgb),.16);}
   .cta-note{font-size:13px;color:var(--muted);margin:14px 0 0;}
-
+  .gate{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px 22px 16px;box-shadow:0 20px 50px -30px rgba(18,59,77,.4);max-width:440px;}
+  .gate h3{font-family:'League Spartan';font-weight:700;font-size:18px;margin:0 0 14px;}
+  .gate .grow{display:flex;flex-direction:column;gap:10px;}
+  .gate input{font:inherit;font-size:15px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:#fbfcfd;width:100%;}
+  .gate input:focus{outline:none;border-color:var(--red);box-shadow:0 0 0 3px rgba(var(--red-rgb),.16);}
+  .ferr{color:#c0392b;font-size:13px;min-height:16px;margin:8px 0 0;display:none;} .ferr.show{display:block;}
+  .gsub{width:100%;justify-content:center;margin-top:12px;}
+  .glink{display:block;text-align:center;margin-top:12px;font-size:13.5px;color:var(--red);font-weight:600;text-decoration:none;}
+  .priv{font-size:12px;color:var(--muted);margin:11px 0 0;text-align:center;}
   .stage-col{display:flex;flex-direction:column;align-items:center;gap:12px;}
   .stage{width:min(392px,92vw);height:min(800px,80vh);background:#0c0c0d;padding:11px;border-radius:42px;position:relative;box-shadow:0 40px 90px -34px rgba(0,0,0,.5),0 0 0 1px rgba(0,0,0,.32);perspective:1600px;}
   .flip{width:100%;height:100%;border-radius:32px;overflow:hidden;transform-style:preserve-3d;transition:transform .42s ease;}
@@ -50,47 +50,24 @@
   .flip iframe{width:100%;height:100%;border:0;display:block;background:#F7F8FA;}
   .caption{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:var(--muted);text-align:center;}
   .caption .dot{width:8px;height:8px;border-radius:50%;background:#45CD81;box-shadow:0 0 0 4px rgba(69,205,129,.18);}
-  .caption.live .dot{background:var(--red);box-shadow:0 0 0 4px rgba(224,1,52,.2);animation:pulse 1.4s infinite;}
-  @keyframes pulse{50%{box-shadow:0 0 0 8px rgba(224,1,52,0);}}
-
-  footer{border-top:1px solid var(--line);padding:16px 32px;text-align:center;color:var(--muted);font-size:13px;}
-  footer b{color:#207082;}
-
-  @media(max-width:900px){
-    .wrap{grid-template-columns:1fr;gap:28px;padding:22px;}
-    .stage-col{order:-1;}
-    .stage{height:70vh;}
-    .copy{max-width:none;}
-  }
+  .caption.live .dot{background:var(--red);box-shadow:0 0 0 4px rgba(var(--red-rgb),.2);animation:pulse 1.4s infinite;}
+  @keyframes pulse{50%{box-shadow:0 0 0 8px rgba(var(--red-rgb),0);}}
+  footer{border-top:1px solid var(--line);padding:16px 32px;text-align:center;color:var(--muted);font-size:13px;} footer b{color:#207082;}
+  @media(max-width:900px){.wrap{grid-template-columns:1fr;gap:28px;padding:22px;}.stage-col{order:-1;}.stage{height:70vh;}.copy{max-width:none;}}
 </style>
 </head>
 <body>
-  <div class="top">
-    <div class="mc"><span class="tile">M</span> Multicentro</div>
-    <div class="by">asistente por <b>alteria</b></div>
-  </div>
-
+  <div class="top"><div class="mc"><span class="tile">M</span> Multicentro</div><div class="by">asistente por <b>alteria</b></div></div>
   <main class="wrap">
     <section class="copy">
       <span class="eyebrow">Asistente de ventas con IA</span>
       <h1>Asistente de Ventas <span class="accent">Multicentro</span></h1>
       <p class="sub">Ya está corriendo sobre el catálogo de Multicentro, listo para atender y vender.</p>
-      <ul class="feats">
-        <li><span class="ic">&#10003;</span><span>Listo para estar en producción en horas.</span></li>
-        <li><span class="ic">&#10003;</span><span>Cada conversación disponible para que la revises.</span></li>
-        <li><span class="ic">&#10003;</span><span>Sin sacar al cliente de tu página web.</span></li>
-      </ul>
-      <div class="cta-row">
-        <a class="btn" id="probar" href="https://bot.alteria.dev/multicentro" onclick="startDemo();return false;">Haz clic aquí para probar tu asistente <span class="arrow">&rarr;</span></a>
-        <a class="btn secondary" href="https://calendly.com/felipe-moreno-alteria/30min" onclick="if(window.Calendly){Calendly.initPopupWidget({url:'https://calendly.com/felipe-moreno-alteria/30min'});return false;}">Agendar una reunión <span class="arrow">&rarr;</span></a>
-      </div>
-      <p class="cta-note">Haz clic y el asistente real se abre aquí mismo, en el teléfono.</p>
+      <ul class="feats"><li><span class="ic">&#10003;</span><span>Listo para estar en producción en horas.</span></li><li><span class="ic">&#10003;</span><span>Cada conversación disponible para que la revises.</span></li><li><span class="ic">&#10003;</span><span>Sin sacar al cliente de tu página web.</span></li></ul>
+      <div class="cta-row"><a class="btn" id="probar" href="https://bot.alteria.dev/multicentro" onclick="startDemo();return false;">Haz clic aquí para probar tu asistente <span class="arrow">&rarr;</span></a><a class="btn secondary" href="https://calendly.com/felipe-moreno-alteria/30min" onclick="if(window.Calendly){Calendly.initPopupWidget({url:'https://calendly.com/felipe-moreno-alteria/30min'});return false;}">Agendar una reunión <span class="arrow">&rarr;</span></a></div><p class="cta-note">Haz clic y el asistente real se abre aquí mismo, en el teléfono.</p>
     </section>
-
     <section class="stage-col">
-      <div class="stage">
-        <div class="flip" id="flip">
-          <iframe id="demoframe" title="Demo Multicentro" srcdoc="<!DOCTYPE html>
+      <div class="stage"><div class="flip" id="flip"><iframe id="demoframe" title="Demo Multicentro" srcdoc="<!DOCTYPE html>
 <html lang=&quot;es&quot;>
 <head>
 <meta charset=&quot;UTF-8&quot;>
@@ -411,45 +388,26 @@ window.HERO_CONFIG = {
 </script>
 </body>
 </html>
-"></iframe>
-        </div>
-      </div>
+"></iframe></div></div>
       <div class="caption" id="caption"><span class="dot"></span><span id="captxt">Demo en vivo &mdash; haz clic para conversar con el asistente real</span></div>
     </section>
   </main>
-
   <footer>Demo sobre el catálogo público de Multicentro &middot; construido por <b>Alteria</b> &middot; alteria.dev</footer>
-
 <script>
-  var BOT_URL='https://bot.alteria.dev/multicentro';
-  var HERO_SRCDOC=null;
+  var BOT_URL='https://bot.alteria.dev/multicentro';var HERO_SRCDOC=null;
   function _fr(){return document.getElementById('demoframe');}
-  function startDemo(){
-    var f=document.getElementById('flip'), fr=_fr();
-    if(HERO_SRCDOC===null){ HERO_SRCDOC=fr.getAttribute('srcdoc'); }
-    f.classList.add('turning');
-    setTimeout(function(){
-      fr.removeAttribute('srcdoc');
-      fr.setAttribute('src', BOT_URL);
-      f.classList.remove('turning');
-    }, 420);
-    var t=document.getElementById('captxt'); if(t){ t.textContent='Asistente real \u00b7 escríbele aquí'; }
-    var c=document.getElementById('caption'); if(c){ c.classList.add('live'); }
-    var b=document.getElementById('probar'); if(b){ b.textContent='Volver al demo'; b.onclick=function(){resetDemo();return false;}; }
-  }
-  function resetDemo(){
-    var f=document.getElementById('flip'), fr=_fr();
-    f.classList.add('turning');
-    setTimeout(function(){
-      fr.removeAttribute('src');
-      if(HERO_SRCDOC!==null){ fr.setAttribute('srcdoc', HERO_SRCDOC); }
-      f.classList.remove('turning');
-    }, 420);
-    var t=document.getElementById('captxt'); if(t){ t.textContent='Demo en vivo \u2014 haz clic para conversar con el asistente real'; }
-    var c=document.getElementById('caption'); if(c){ c.classList.remove('live'); }
-    var b=document.getElementById('probar'); if(b){ b.innerHTML='Haz clic aquí para probar tu asistente <span class=\"arrow\">&rarr;</span>'; b.onclick=function(){startDemo();return false;}; }
-  }
+  function startDemo(){var f=document.getElementById('flip'),fr=_fr();if(HERO_SRCDOC===null){HERO_SRCDOC=fr.getAttribute('srcdoc');}
+    f.classList.add('turning');setTimeout(function(){fr.removeAttribute('srcdoc');fr.setAttribute('src',BOT_URL);f.classList.remove('turning');},420);
+    var t=document.getElementById('captxt');if(t){t.textContent='Asistente real \u00b7 escríbele aquí';}
+    var c=document.getElementById('caption');if(c){c.classList.add('live');}
+    var b=document.getElementById('probar');if(b){b.textContent='Volver al demo';b.onclick=function(){resetDemo();return false;};}}
+  function resetDemo(){var f=document.getElementById('flip'),fr=_fr();f.classList.add('turning');
+    setTimeout(function(){fr.removeAttribute('src');if(HERO_SRCDOC!==null){fr.setAttribute('srcdoc',HERO_SRCDOC);}f.classList.remove('turning');},420);
+    var t=document.getElementById('captxt');if(t){t.textContent='Demo en vivo — haz clic para conversar con el asistente real';}
+    var c=document.getElementById('caption');if(c){c.classList.remove('live');}
+    var b=document.getElementById('probar');if(b){b.innerHTML='Haz clic aquí para probar tu asistente <span class=\"arrow\">&rarr;</span>';b.onclick=function(){startDemo();return false;};}}
 </script>
+
 <script src="https://assets.calendly.com/assets/external/widget.js"></script>
 </body>
 </html>
