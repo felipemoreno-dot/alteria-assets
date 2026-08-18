@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Probador · Handoff al carrito (Shopify) · Alteria</title>
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --teal:#35a5a5; --petrol:#123b4d; --ink:#1c2b33; --muted:#6b7d86;
+    --line:#e2eaed; --soft:#f5f8f8; --ok:#2e8b73; --okbg:#e7f4ef;
+    --warn:#b26a1f; --warnbg:#fff7ec; --bad:#c0392b; --badbg:#fdecec;
+    --card:#ffffff;
+  }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; }
+  body{
+    font-family:"Inter",-apple-system,"Helvetica Neue",Arial,sans-serif;
+    color:var(--ink); background:#eef2f3; font-size:14px; line-height:1.5;
+  }
+  a{ color:var(--teal); }
+  code,.mono{ font-family:"SF Mono",ui-monospace,Menlo,monospace; }
+
+  header{ background:linear-gradient(90deg,var(--petrol),#0f333f); color:#fff; padding:16px 22px; }
+  .wrap{ max-width:1120px; margin:0 auto; }
+  .brand{ font-family:"League Spartan",sans-serif; font-weight:700; font-size:20px; letter-spacing:.01em; }
+  .brand .i{ color:var(--teal); }
+  header .sub{ font-size:13px; opacity:.85; margin-top:3px; }
+  header h1{ font-family:"League Spartan",sans-serif; font-weight:600; font-size:22px; margin:10px 0 0; }
+
+  main{ max-width:1120px; margin:18px auto 60px; padding:0 18px; }
+  .grid{ display:grid; grid-template-columns:1fr 380px; gap:18px; align-items:start; }
+  @media (max-width:880px){ .grid{ grid-template-columns:1fr; } }
+
+  .panel{ background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin-bottom:16px; }
+  .panel h2{ font-family:"League Spartan",sans-serif; font-weight:600; font-size:15px; color:var(--petrol); margin:0 0 10px; text-transform:uppercase; letter-spacing:.08em; }
+  .panel .hint{ color:var(--muted); font-size:12.5px; margin:-4px 0 12px; }
+
+  label{ display:block; font-size:12px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; margin:0 0 4px; }
+  input[type=text]{ width:100%; padding:9px 11px; border:1px solid var(--line); border-radius:8px; font-size:14px; font-family:inherit; }
+  input[type=text]:focus{ outline:2px solid #bfe3e3; border-color:var(--teal); }
+  .row{ display:flex; gap:10px; flex-wrap:wrap; align-items:flex-end; }
+  .row > div{ flex:1; min-width:120px; }
+
+  button{ font-family:inherit; font-weight:600; font-size:13.5px; border-radius:8px; border:1px solid var(--teal); background:var(--teal); color:#fff; padding:9px 14px; cursor:pointer; }
+  button:hover{ filter:brightness(1.05); }
+  button.ghost{ background:#fff; color:var(--petrol); border-color:var(--line); }
+  button.ghost:hover{ border-color:var(--teal); filter:none; }
+  button.sm{ padding:5px 9px; font-size:12px; }
+  button:disabled{ opacity:.5; cursor:default; }
+
+  .badge{ display:inline-block; font-size:11px; font-weight:700; padding:2px 7px; border-radius:5px; }
+  .badge.ok{ background:var(--okbg); color:var(--ok); }
+  .badge.no{ background:var(--badbg); color:var(--bad); }
+
+  #status{ font-size:12.5px; color:var(--muted); margin-top:8px; min-height:16px; }
+
+  .results{ max-height:420px; overflow:auto; margin-top:12px; border-top:1px solid var(--line); }
+  .item{ display:flex; gap:11px; align-items:center; padding:9px 2px; border-bottom:1px solid var(--line); }
+  .item img{ width:44px; height:44px; object-fit:contain; background:#fff; border:1px solid var(--line); border-radius:6px; flex:0 0 auto; }
+  .item .t{ flex:1; min-width:0; }
+  .item .t .nm{ font-size:13px; font-weight:500; color:var(--ink); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .item .t .meta{ font-size:11.5px; color:var(--muted); margin-top:2px; }
+  .item .pr{ font-family:"League Spartan",sans-serif; font-weight:600; color:var(--petrol); font-size:13.5px; white-space:nowrap; }
+
+  /* carrito */
+  .cart .line{ display:flex; gap:9px; align-items:center; padding:8px 0; border-bottom:1px solid var(--line); }
+  .cart .line .t{ flex:1; min-width:0; }
+  .cart .line .nm{ font-size:12.5px; font-weight:500; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .cart .line .meta{ font-size:11px; color:var(--muted); }
+  .qty{ display:flex; align-items:center; gap:4px; }
+  .qty button{ width:24px; height:24px; padding:0; border-radius:6px; background:#fff; color:var(--petrol); border:1px solid var(--line); font-size:15px; line-height:1; }
+  .qty span{ min-width:20px; text-align:center; font-size:13px; font-weight:600; }
+  .cart .rm{ color:var(--bad); cursor:pointer; font-size:16px; border:none; background:none; padding:0 2px; }
+  .totrow{ display:flex; justify-content:space-between; align-items:baseline; margin-top:12px; padding-top:10px; border-top:2px solid var(--teal); }
+  .totrow .lbl{ font-family:"League Spartan",sans-serif; font-weight:700; color:var(--petrol); }
+  .totrow .amt{ font-family:"League Spartan",sans-serif; font-weight:700; color:var(--teal); font-size:20px; }
+  .empty{ color:var(--muted); font-size:13px; padding:14px 0; text-align:center; }
+
+  .permbox{ background:var(--soft); border:1px solid var(--line); border-radius:8px; padding:10px 12px; font-size:11.5px; word-break:break-all; color:var(--petrol); margin-top:6px; max-height:110px; overflow:auto; }
+  .cta{ display:flex; gap:9px; margin-top:10px; flex-wrap:wrap; }
+  .cta button{ flex:1; }
+
+  details{ margin-top:8px; }
+  summary{ cursor:pointer; font-weight:600; color:var(--petrol); font-size:13px; }
+  .callout{ border-left:3px solid var(--teal); background:var(--soft); padding:9px 12px; border-radius:0 8px 8px 0; font-size:12.5px; margin-top:10px; }
+  .callout.warn{ border-color:var(--warn); background:var(--warnbg); }
+  .snippet{ background:#0f2530; color:#cde; font-family:"SF Mono",ui-monospace,Menlo,monospace; font-size:11px; padding:10px 12px; border-radius:8px; overflow:auto; white-space:pre-wrap; word-break:break-all; margin-top:8px; }
+  .chips{ display:flex; gap:6px; flex-wrap:wrap; margin-top:8px; }
+  .chip{ font-size:11.5px; border:1px dashed var(--teal); color:var(--petrol); background:#f4fbfb; padding:4px 8px; border-radius:20px; cursor:pointer; }
+  .switchrow{ display:flex; align-items:center; gap:8px; margin-top:8px; font-size:12.5px; color:var(--ink); }
+  .footnote{ color:var(--muted); font-size:11.5px; margin-top:14px; text-align:center; }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="brand">Alter<span class="i">i</span>a</div>
+    <div class="sub">Probador de handoff — del cotizador del asistente al carrito del cliente</div>
+    <h1>Enviar una cotización al carrito real · Shopify</h1>
+  </div>
+</header>
+
+<main>
+  <div class="panel">
+    <h2>Tienda Shopify</h2>
+    <p class="hint">Funciona con cualquier tienda Shopify. El catálogo se lee en vivo desde <code>/products.json</code> (permite lectura cross-origin). Por defecto: Kitchen Center.</p>
+    <div class="row">
+      <div style="flex:2">
+        <label>Dominio de la tienda</label>
+        <input id="domain" type="text" value="www.kitchencenter.cl" placeholder="www.mitienda.cl">
+      </div>
+      <div style="flex:0 0 auto">
+        <button id="loadBtn">Cargar catálogo real</button>
+      </div>
+    </div>
+    <div id="status"></div>
+  </div>
+
+  <div class="grid">
+    <!-- IZQUIERDA: catálogo / búsqueda -->
+    <div>
+      <div class="panel">
+        <h2>1 · Buscar productos (el asistente asesora)</h2>
+        <p class="hint">Busca por nombre o SKU y agrégalos como lo haría el cotizador del bot. También puedes agregar por <code>variant_id</code> manual.</p>
+        <div class="row">
+          <div style="flex:3"><input id="search" type="text" placeholder="Ej: parrilla, sartén, horno, taladro…"></div>
+        </div>
+        <div class="chips" id="quickchips">
+          <span class="hint">Atajos verificados en stock:</span>
+        </div>
+        <div class="results" id="results"><div class="empty">Carga el catálogo y busca, o usa un atajo de arriba.</div></div>
+
+        <details style="margin-top:12px">
+          <summary>Agregar por variant_id manual</summary>
+          <div class="row" style="margin-top:8px">
+            <div><label>variant_id</label><input id="mvid" type="text" placeholder="41801823289399"></div>
+            <div style="flex:0 0 90px"><label>Cantidad</label><input id="mqty" type="text" value="1"></div>
+            <div style="flex:0 0 auto"><button class="ghost" id="maddBtn">Agregar</button></div>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- DERECHA: cotización / carrito / atribución / permalink -->
+    <div>
+      <div class="panel cart">
+        <h2>2 · Cotización</h2>
+        <div id="cartlist"><div class="empty">Aún no hay productos en la cotización.</div></div>
+        <div class="totrow"><span class="lbl">Total</span><span class="amt" id="total">$0</span></div>
+      </div>
+
+      <div class="panel">
+        <h2>3 · Atribución</h2>
+        <p class="hint">Marca la venta como originada por el asistente. Los <b>atributos de carrito</b> viajan a la orden dentro del sistema del cliente; el UTM va en el enlace.</p>
+        <div class="switchrow">
+          <input type="checkbox" id="useAttr" checked>
+          <label for="useAttr" style="margin:0;text-transform:none;letter-spacing:0;font-weight:500;color:var(--ink)">Incluir atributos de atribución + UTM</label>
+        </div>
+        <div class="row" style="margin-top:8px">
+          <div><label>attributes[origen]</label><input id="attrOrigen" type="text" value="asistente-alteria"></div>
+        </div>
+        <div class="row" style="margin-top:8px">
+          <div><label>cotización id</label><input id="attrCot" type="text" value="DEMO-001"></div>
+          <div><label>utm_campaign</label><input id="utmCamp" type="text" value="cotizador_carrito"></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>4 · Enlace generado</h2>
+        <div class="permbox mono" id="permbox">—</div>
+        <div class="cta">
+          <button id="openBtn" disabled>Abrir carrito real ↗</button>
+          <button class="ghost" id="copyBtn" disabled>Copiar enlace</button>
+        </div>
+        <div class="callout warn">
+          <b>Validación de stock (obligatoria).</b> <code>available:true</code> del catálogo no es verdad de stock. Tras abrir el carrito, corre el validador <b>en la pestaña de la tienda</b> para ver qué entró de verdad (<code>/cart.js</code> es same-origin; por eso no se puede desde aquí).
+          <details>
+            <summary>Ver validador (bookmarklet + snippet de consola)</summary>
+            <p class="hint" style="margin-top:8px">Arrastra este botón a tu barra de marcadores, o copia el snippet y pégalo en la consola estando en la tienda:</p>
+            <p><a id="bmk" href="#" style="display:inline-block;background:var(--petrol);color:#fff;padding:6px 12px;border-radius:6px;text-decoration:none;font-weight:600;font-size:12.5px">🔎 Validar carrito Alteria</a></p>
+            <div class="snippet" id="snippet"></div>
+          </details>
+        </div>
+        <div class="callout">
+          <b>Control negativo:</b> un <code>variant_id</code> falso responde <b>410 Gone</b> — así el sistema no confunde un 200 con un carrito armado.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="footnote">Herramienta interna de Alteria · reproduce el flujo de <code>producto/spec-precarrito-checkout-2026-08-07.md</code> · Alteria no procesa el pago: el comprador paga en el checkout que la tienda ya tiene contratado.</p>
+</main>
+
+<script>
+const $ = s => document.querySelector(s);
+const clp = n => '$' + Math.round(n).toLocaleString('es-CL');
+let CATALOG = [];        // [{variantId, sku, title, price, available, image}]
+let LOADING = false;
+const CART = new Map();   // variantId -> {qty, item}
+const REGISTRY = new Map(); // variantId -> item (catálogo + atajos + manuales)
+function registerAll(arr){ arr.forEach(v => REGISTRY.set(String(v.variantId), v)); }
+
+// productos verificados en stock (atajos), por si el catálogo aún no cargó
+const QUICK = [
+  {variantId:'41296847503415', sku:'995222-211615', title:'Parrilla a Carbón Plegable Arizona', price:269990, available:true, image:''},
+  {variantId:'41801823289399', sku:'762292-212954', title:'Parrilla Carbón Kettle Black', price:109990, available:true, image:''},
+  {variantId:'39734514057271', sku:'995222-11390', title:'Parrilla Giorgia 3 Quemadores', price:204990, available:true, image:''},
+];
+
+function domain(){ return $('#domain').value.trim().replace(/^https?:\/\//,'').replace(/\/$/,''); }
+function base(){ return 'https://' + domain(); }
+
+async function loadCatalog(){
+  if(LOADING) return;
+  LOADING = true; CATALOG = [];
+  $('#loadBtn').disabled = true;
+  const seen = new Set();
+  let page = 1, total = 0;
+  try{
+    while(page <= 30){
+      $('#status').textContent = `Cargando catálogo… página ${page} (${total} variantes)`;
+      const r = await fetch(`${base()}/products.json?limit=250&page=${page}`, {headers:{'Accept':'application/json'}});
+      if(!r.ok){ $('#status').textContent = `La tienda respondió ${r.status} en products.json.`; break; }
+      const data = await r.json();
+      const prods = data.products || [];
+      if(prods.length === 0) break;
+      for(const p of prods){
+        const img = (p.images && p.images[0] && p.images[0].src) || '';
+        for(const v of p.variants){
+          if(seen.has(v.id)) continue; seen.add(v.id);
+          CATALOG.push({
+            variantId: String(v.id),
+            sku: v.sku || '',
+            title: p.title + (v.title && v.title !== 'Default Title' ? ' — ' + v.title : ''),
+            price: parseFloat(v.price),
+            available: !!v.available,
+            image: img
+          });
+          registerAll([CATALOG[CATALOG.length-1]]);
+          total++;
+        }
+      }
+      page++;
+    }
+    $('#status').innerHTML = `<b>Catálogo cargado:</b> ${total} variantes en ${page-1} páginas · tienda <code>${domain()}</code>`;
+  }catch(e){
+    $('#status').textContent = 'No se pudo leer el catálogo (CORS o red). Puedes usar los atajos o agregar por variant_id manual. ' + e;
+  }
+  LOADING = false; $('#loadBtn').disabled = false;
+  render();
+}
+
+function search(q){
+  q = q.trim().toLowerCase();
+  const box = $('#results');
+  if(!q){ box.innerHTML = '<div class="empty">Escribe para buscar en el catálogo.</div>'; return; }
+  const src = CATALOG.length ? CATALOG : QUICK;
+  const hits = src.filter(v => (v.title.toLowerCase().includes(q) || v.sku.toLowerCase().includes(q))).slice(0, 60);
+  if(!hits.length){ box.innerHTML = '<div class="empty">Sin resultados' + (CATALOG.length?'':' — carga el catálogo real para buscar todo') + '.</div>'; return; }
+  box.innerHTML = hits.map(v => `
+    <div class="item">
+      ${v.image?`<img src="${v.image}" onerror="this.style.visibility='hidden'">`:`<div style="width:44px;height:44px;flex:0 0 auto;background:#f0f4f5;border-radius:6px"></div>`}
+      <div class="t">
+        <div class="nm" title="${v.title.replace(/"/g,'&quot;')}">${v.title}</div>
+        <div class="meta">${v.sku?('SKU '+v.sku+' · '):''}variant ${v.variantId} · ${v.available?'<span class="badge ok">available</span>':'<span class="badge no">no disp.</span>'}</div>
+      </div>
+      <div class="pr">${clp(v.price)}</div>
+      <button class="sm" onclick="addById('${v.variantId}')">+</button>
+    </div>`).join('');
+}
+
+window.addById = function(id){
+  id = String(id);
+  const v = REGISTRY.get(id) || {variantId:id, sku:'', title:'variant '+id, price:0, available:true, image:''};
+  if(CART.has(id)) CART.get(id).qty++;
+  else CART.set(id, {qty:1, item:v});
+  render();
+};
+function changeQty(id, d){ const e=CART.get(id); if(!e) return; e.qty+=d; if(e.qty<=0) CART.delete(id); render(); }
+function removeItem(id){ CART.delete(id); render(); }
+window.changeQty=changeQty; window.removeItem=removeItem;
+
+function buildPermalink(){
+  const parts = [...CART.entries()].map(([id,e]) => `${id}:${e.qty}`);
+  if(!parts.length) return '';
+  let url = `${base()}/cart/${parts.join(',')}`;
+  if($('#useAttr').checked){
+    const p = new URLSearchParams();
+    const origen = $('#attrOrigen').value.trim();
+    const cot = $('#attrCot').value.trim();
+    if(origen) p.append('attributes[origen]', origen);
+    if(cot) p.append('attributes[cotizacion_id]', cot);
+    p.append('utm_source','alteria');
+    p.append('utm_medium','asistente');
+    const camp = $('#utmCamp').value.trim(); if(camp) p.append('utm_campaign', camp);
+    url += '?' + p.toString();
+  }
+  return url;
+}
+
+function render(){
+  // carrito
+  const list = $('#cartlist');
+  if(CART.size === 0){ list.innerHTML = '<div class="empty">Aún no hay productos en la cotización.</div>'; }
+  else {
+    list.innerHTML = [...CART.entries()].map(([id,e]) => `
+      <div class="line">
+        <div class="t">
+          <div class="nm" title="${e.item.title.replace(/"/g,'&quot;')}">${e.item.title}</div>
+          <div class="meta">${e.item.sku?('SKU '+e.item.sku+' · '):''}${clp(e.item.price)} c/u</div>
+        </div>
+        <div class="qty">
+          <button onclick="changeQty('${id}',-1)">−</button><span>${e.qty}</span><button onclick="changeQty('${id}',1)">+</button>
+        </div>
+        <button class="rm" title="Quitar" onclick="removeItem('${id}')">×</button>
+      </div>`).join('');
+  }
+  const total = [...CART.values()].reduce((s,e)=>s+e.item.price*e.qty, 0);
+  $('#total').textContent = clp(total);
+
+  // permalink
+  const url = buildPermalink();
+  $('#permbox').textContent = url || '—';
+  $('#openBtn').disabled = !url;
+  $('#copyBtn').disabled = !url;
+
+  // validador (bookmarklet + snippet) según dominio
+  const raw = `(async()=>{try{const c=await fetch('/cart.js').then(r=>r.json());let el=document.getElementById('alteria-val');if(!el){el=document.createElement('div');el.id='alteria-val';el.style.cssText='position:fixed;right:16px;bottom:16px;z-index:99999;max-width:340px;background:#123b4d;color:#fff;font:13px/1.5 system-ui;padding:14px 16px;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.3)';document.body.appendChild(el);}const li=c.items.map(i=>'✓ '+i.title+' — '+(i.sku||'')+' × '+i.quantity).join('<br>');el.innerHTML='<b>Carrito real · '+c.item_count+' items · $'+(c.total_price/100).toLocaleString('es-CL')+'</b><br>'+li+'<br><br><small>attributes: '+JSON.stringify(c.attributes)+'</small>';}catch(e){alert('Corre esto EN la pestaña de la tienda: '+e);}})()`;
+  $('#bmk').href = 'javascript:' + encodeURIComponent(raw);
+  $('#snippet').textContent = raw;
+}
+
+// eventos
+$('#loadBtn').addEventListener('click', loadCatalog);
+$('#search').addEventListener('input', e => search(e.target.value));
+$('#maddBtn').addEventListener('click', () => {
+  const id = $('#mvid').value.trim(); const q = parseInt($('#mqty').value,10)||1;
+  if(!/^\d+$/.test(id)){ alert('variant_id inválido'); return; }
+  const found = CATALOG.find(v=>v.variantId===id) || {variantId:id, sku:'', title:'variant '+id, price:0, available:true, image:''};
+  CART.set(id, {qty:q, item:found}); render();
+});
+$('#openBtn').addEventListener('click', () => { const u=buildPermalink(); if(u) window.open(u,'_blank'); });
+$('#copyBtn').addEventListener('click', async () => {
+  const u=buildPermalink(); if(!u) return;
+  try{ await navigator.clipboard.writeText(u); $('#copyBtn').textContent='¡Copiado!'; setTimeout(()=>$('#copyBtn').textContent='Copiar enlace',1200);}catch(e){}
+});
+['useAttr','attrOrigen','attrCot','utmCamp'].forEach(id=>$('#'+id).addEventListener('input',render));
+
+// registrar atajos y pintar chips
+registerAll(QUICK);
+$('#quickchips').innerHTML += QUICK.map(v=>`<span class="chip" onclick="addById('${v.variantId}')">+ ${v.title} · ${clp(v.price)}</span>`).join('');
+
+render();
+// autocargar catálogo al abrir
+loadCatalog();
+</script>
+</body>
+</html>
