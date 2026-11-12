@@ -12,7 +12,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@500;600;700;800&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://assets.calendly.com/assets/external/widget.css">
 <style>
   :root{--red:#CB1E70;--red-dark:#a3155a;--red-rgb:203,30,112;--ink:#161B63;--muted:#5d6080;--line:#ecebf2;--bg:#fff;--soft:#fbeaf2;}
   *{box-sizing:border-box}html,body{margin:0}
@@ -58,6 +57,17 @@
   @keyframes pulse{50%{box-shadow:0 0 0 8px rgba(var(--red-rgb),0);}}
   footer{border-top:1px solid var(--line);padding:16px 32px;text-align:center;color:var(--muted);font-size:13px;} footer b{color:#207082;}
   @media(max-width:900px){.wrap{grid-template-columns:1fr;gap:28px;padding:22px;}.stage-col{order:-1;}.stage{height:70vh;}.copy{max-width:none;}}
+  html{scroll-behavior:smooth}
+  .deck-sec{background:#0c2a37;padding:56px 0 24px}
+  .deck-hd{max-width:1120px;margin:0 auto 26px;padding:0 32px;display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap}
+  .deck-sec .kick{font-family:'League Spartan';font-weight:700;font-size:12px;letter-spacing:2.4px;text-transform:uppercase;color:#7FE3E3;margin:0 0 10px}
+  .deck-sec h2{font-family:'League Spartan';font-weight:800;font-size:clamp(26px,3vw,38px);line-height:1.1;margin:0 0 10px;color:#fff}
+  .deck-sec .lead{font-size:16.5px;color:#c7d6db;margin:0;max-width:44em}
+  .deck-sec .open{font-family:'League Spartan';font-weight:700;font-size:15px;color:#fff;text-decoration:none;border:1.5px solid rgba(255,255,255,.35);padding:10px 16px;border-radius:10px;white-space:nowrap}
+  .deck-sec .open:hover{background:rgba(255,255,255,.08)}
+  #bro{display:block;width:100%;height:85vh;border:0;background:#0c2a37}
+  #bro.auto{overflow:hidden}
+  @media(max-width:900px){.deck-sec{padding:40px 0 16px}.deck-hd{padding:0 20px}}
 </style>
 </head>
 <body>
@@ -73,7 +83,7 @@
         <li><span class="ic">&#10003;</span><span>Vive dentro de tu web: el cliente no sale de mundoaromas.cl.</span></li>
         <li><span class="ic">&#10003;</span><span>Cada conversación queda disponible para que la revises.</span></li>
       </ul>
-      <div class="cta-row"><a class="btn" href="https://calendly.com/felipe-moreno-alteria/30min" onclick="if(window.Calendly){Calendly.initPopupWidget({url:'https://calendly.com/felipe-moreno-alteria/30min'});return false;}">Agendar una reunión <span class="arrow">&rarr;</span></a></div>
+      <div class="cta-row"><a class="btn" href="#brochure">Ver la presentación <span class="arrow">&darr;</span></a></div>
       <p class="cta-note">El demo de la derecha usa productos y precios reales de mundoaromas.cl.</p>
     </section>
     <section class="stage-col">
@@ -402,7 +412,20 @@ window.HERO_CONFIG = {
       <div class="caption" id="caption"><span class="dot"></span><span id="captxt">Demo &mdash; así conversaría el asistente con tus clientes</span></div>
     </section>
   </main>
+<section class="deck-sec" id="brochure">
+  <div class="deck-hd">
+    <div><p class="kick">Presentación</p><h2>Alteria × Mundo Aromas</h2><p class="lead">IA para el retail: ventas, capacitación y visual, con ejemplos sobre el catálogo real de Mundo Aromas.</p></div>
+    <a class="open" href="brochure.html" target="_blank" rel="noopener">Abrir en pantalla completa &#8599;</a>
+  </div>
+  <iframe id="bro" src="brochure.html" title="Presentación Alteria × Mundo Aromas" loading="eager"></iframe>
+</section>
+<script>
+(function(){var f=document.getElementById('bro');
+ function size(){try{var d=f.contentDocument;if(!d||!d.body)return;var h=d.documentElement.scrollHeight;if(h>200){f.style.height=h+'px';f.classList.add('auto');}}catch(e){}}
+ f.addEventListener('load',function(){size();try{new ResizeObserver(size).observe(f.contentDocument.body);}catch(e){}setTimeout(size,800);});
+ window.addEventListener('resize',function(){setTimeout(size,200);});})();
+</script>
+
   <footer>Demo sobre el catálogo público de Mundo Aromas &middot; construido por <b>Alteria</b> &middot; alteria.dev</footer>
-<script src="https://assets.calendly.com/assets/external/widget.js"></script>
 </body>
 </html>
